@@ -32,7 +32,8 @@ const config = {
     output: {
         filename: '[name].bundle.js',
         // path: project.paths.dist()
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: path.resolve(__dirname, 'src')
     },
 
     // =================================================

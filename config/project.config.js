@@ -36,7 +36,7 @@ const config = {
     compiler_babel: {
         cacheDirectory: true,
         // plugins: ['@babel/plugin-transform-runtime'],
-        plugins: ['babel-plugin-transform-runtime'],
+        // plugins: ['babel-plugin-transform-runtime'],
         // presets: ['es2015', 'react', 'stage-0']
         presets: [
             [
