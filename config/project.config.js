@@ -35,9 +35,18 @@ const config = {
     // =================================================
     compiler_babel: {
         cacheDirectory: true,
-        plugins: ['transform-runtime'],
+        // plugins: ['@babel/plugin-transform-runtime'],
+        plugins: ['babel-plugin-transform-runtime'],
         // presets: ['es2015', 'react', 'stage-0']
-        presets: ['@babel/env']
+        presets: [
+            [
+                '@babel/preset-env',
+                {
+                    'useBuiltIns': 'entry'
+                }
+            ],
+            '@babel/preset-react'
+        ]
     },
     compiler_devtool: 'source-map',
     compiler_hash_type: 'hash',

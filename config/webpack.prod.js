@@ -8,39 +8,33 @@
 
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const debug = require('debug')('app:config:webpack:prod')
 const common = require('./webpack.common.js')
 
 debug('Creating webpack prod configuration.')
 
 const config = merge(common, {
+    // 指定环境
+    mode: 'production',
+    devtool: 'source-map',
+    optimization: {},
     plugins: [
-        // 压缩js代码
-        new UglifyJsPlugin({
-            compress: {
-                unused: true,
-                dead_code: true,
-                warnings: false
-            }
+        new CleanWebpackPlugin(['dist']),
+        // 分离 css 文件
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].css',
+            chunkfilename: '[id].css'
         }),
-        new ExtractTextPlugin({
-            filename: '[name].[contenthash].css',
-            allChunks: true
-        })
     ]
 })
 
 config.module.rules.filter((loader) =>
-    loader.use && loader.use.find((name) => /css/.test(name.split('?')[0]))
+    loader.use && loader.use.find((name) => /(sc|c)ss/.test(name.split('?')[0]))
 ).forEach((loader) => {
-    const first = loader.use[0]
-    const rest = loader.use.slice(1)
-    loader.loader = ExtractTextPlugin.extract({
-        fallbackLoader: first,
-        loader: rest.join('!')
-    })
-    delete loader.use
+    // production 环境用 MiniCssExtractPlugin.loader， development 环境用 style-loader
+    loader.use = [MiniCssExtractPlugin.loader, ...loader.use.slice(1)]
 })
 
 module.exports = config

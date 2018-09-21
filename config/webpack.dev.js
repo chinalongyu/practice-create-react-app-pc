@@ -15,6 +15,7 @@ const project = require('./project.config')
 debug('Creating webpack dev configuration.')
 
 const config = merge(common, {
+    mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
         contentBase: project.paths.dist,

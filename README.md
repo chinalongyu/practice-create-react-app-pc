@@ -105,3 +105,17 @@
 
 * 在package.json中写脚本的时候，需要安装 better-npm-run
 * 在当前node版本下全局安装 webpack，安装webpack-cli
+
+## 2018年9月21（解决webpack运行/打包失败问题）
+
+* 安装 clean-webpack-plugin， mini-css-extract-plugin，babel-plugin-transform-runtime
+```
+cnpm i --save-dev clean-webpack-plugin mini-css-extract-plugin @babel/plugin-transform-runtime
+```
+
+* 安装
+```
+cnpm i --save babel-polyfill babel-runtime
+cnpm install --save-dev @babel/preset-react
+```
+TODO npm run build 报错……
