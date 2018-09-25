@@ -1,4 +1,4 @@
-import { EXAMPLE } from '../constants'
+import { EXAMPLE } from 'constants'
 
 function example(val) {
     return { type: EXAMPLE, payload: { title: val } }

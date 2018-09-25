@@ -19,6 +19,7 @@ const config = merge(common, {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: project.paths.dist,
+        // contentBase: './dist',
         compress: true,
         port: 9000
     },

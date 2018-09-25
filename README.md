@@ -103,7 +103,7 @@
 
 * 创建 ```src``` 文件夹，并创建 ```index.jsx``` 文件。
 
-* 在package.json中写脚本的时候，需要安装 better-npm-run
+* 在 package.json中 写脚本的时候，需要安装 better-npm-run
 * 在当前node版本下全局安装 webpack，安装webpack-cli
 
 ## 2018年9月21（解决webpack运行/打包失败问题）
@@ -119,3 +119,24 @@ cnpm i --save babel-polyfill babel-runtime
 cnpm install --save-dev @babel/preset-react
 ```
 TODO npm run build 报错……
+
+## 2018年9月25（解决webpack运行/打包失败问题）
+
+* 调试 webpack 配置文件
+```
+// package.json 添加 script
+"debug": "webpack --config config/webpack.common.js"
+
+// 在chrome 浏览器输入 chrome://inspect/#devices，然后点击 Open dedicated DevTools for Node
+```
+
+* 一直找不到 src 下的文件，需要在 webpack.common.js 中配置
+```
+resolve: {
+    modules: [
+        project.paths.client(),
+        'node_modules'
+    ],
+    extensions: ['.js', '.jsx', '.json']
+},
+```

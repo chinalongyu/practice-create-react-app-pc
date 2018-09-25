@@ -22,8 +22,20 @@ const config = {
     // 入口
     // =================================================
     entry: {
-        // app: APP_ENTRY
-        app: './src/index.jsx'
+        app: APP_ENTRY
+        // app: './src/index.jsx'
+    },
+
+    // =================================================
+    // resolve 配置 webpack 如何寻找模块对应的文件。
+    // 如果不配置，将找不到 src 下的文件
+    // =================================================
+    resolve: {
+        modules: [
+            project.paths.client(),
+            'node_modules'
+        ],
+        extensions: ['.js', '.jsx', '.json']
     },
 
     // =================================================
@@ -31,9 +43,8 @@ const config = {
     // =================================================
     output: {
         filename: '[name].bundle.js',
-        // path: project.paths.dist()
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: path.resolve(__dirname, 'src')
+        path: project.paths.dist(),
+        publicPath: project.compiler_public_path
     },
 
     // =================================================
