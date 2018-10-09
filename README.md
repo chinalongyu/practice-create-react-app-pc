@@ -118,7 +118,6 @@ cnpm i --save-dev clean-webpack-plugin mini-css-extract-plugin @babel/plugin-tra
 cnpm i --save babel-polyfill babel-runtime
 cnpm install --save-dev @babel/preset-react
 ```
-TODO npm run build 报错……
 
 ## 2018年9月25（解决webpack运行/打包失败问题）
 
@@ -140,3 +139,19 @@ resolve: {
     extensions: ['.js', '.jsx', '.json']
 },
 ```
+
+## 2018年10月8（解决webpack运行/打包失败问题）
+
+运行 ```npm run start``` 报错：```｢wds｣: webpack Dev Server Invalid Options```。解决方法：修改 ```contentBase: project.paths.dist``` 为 ```contentBase: project.paths.dist()```
+
+无法通过ip访问服务，只能通过 ```localhost```。解决方法：设置 ```devServer.host``` 的值为 ```0.0.0.0```。
+
+设置 ```devServer.host=0.0.0.0``` 后，自动打开浏览器，访问 ```0.0.0.0::port```这个错误地址，移除 ```scripts.start``` 中的 ```--open``` 就不会自动打开浏览器了。
+
+## 2018年10月9（解决找不到 constants 文件夹里的变量问题）
+
+文件夹命名为 ```constants``` 时，使用 ```import``` 会找不到变量，造成这个问题的原因是，安装的模块/插件中有名为 ```constants-browserify``` 的插件， 里边有 ```constants.json```， 使用 ```import {xxx} from 'constants'``` 时，实际引入的是这个文件里的内容。解决方法有三个
+
+1. 修改 ```constants``` 文件夹的名字；
+2. 使用相对路径 ```import {xxx} from '../constants'```
+3. 在 ```webpack.common.js``` 中配置 ```resolve.alias``` ，给创建的 ```constants``` 文件夹取一个别名，如 ```appConstants``` ，然后使用 ```import { xxx } from 'appConstants'``` 即可引入

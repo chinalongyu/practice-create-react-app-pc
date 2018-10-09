@@ -9,11 +9,15 @@
  */
 
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const debug = require('debug')('app:config:webpack:common')
 const project = require('./project.config')
 
-debug('Creating webpack common configuration.')
+const LOG = (log) => {
+    console.log('[## app:config:webpack:common] ', log)
+}
+
+LOG('Creating webpack configuration.')
 
 const APP_ENTRY = project.paths.client('index.jsx')
 
@@ -27,6 +31,7 @@ const config = {
     },
 
     // =================================================
+    // 解析
     // resolve 配置 webpack 如何寻找模块对应的文件。
     // 如果不配置，将找不到 src 下的文件
     // =================================================
@@ -35,7 +40,10 @@ const config = {
             project.paths.client(),
             'node_modules'
         ],
-        extensions: ['.js', '.jsx', '.json']
+        extensions: ['.js', '.jsx', '.json'],
+        alias: {
+            appConstants: path.resolve(__dirname, `${project.paths.client()}/constants`)
+        }
     },
 
     // =================================================

@@ -10,10 +10,13 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const debug = require('debug')('app:config:webpack:prod')
 const common = require('./webpack.common.js')
 
-debug('Creating webpack prod configuration.')
+const LOG = (log) => {
+    console.log('[## app:config:webpack:prod] ', log)
+}
+
+LOG('Creating webpack configuration.')
 
 const config = merge(common, {
     // 指定环境

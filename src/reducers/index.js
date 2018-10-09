@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
 
-import { createReducer } from 'utils/createReducer'
-import { EXAMPLE } from 'constants'
+import createReducer from 'utils/createReducer'
+// import { EXAMPLE } from '../constants'
+import { EXAMPLE } from 'appConstants'
 
 const example = createReducer(
     { title: "项目构建成功" },

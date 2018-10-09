@@ -1,1 +1,5 @@
-export const EXAMPLE = 'EXAMPLE'
+const EXAMPLE = 'EXAMPLE'
+
+export {
+    EXAMPLE
+}

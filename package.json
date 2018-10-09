@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "webpack --config config/webpack.prod.js",
-    "start": "webpack-dev-server --open --config config/webpack.dev.js",
+    "start": "webpack-dev-server --config config/webpack.dev.js",
     "dev": "better-npm-run dev",
     "deploy:prod": "better-npm-run deploy:prod",
     "debug:dev": "webpack --config config/webpack.dev.js",

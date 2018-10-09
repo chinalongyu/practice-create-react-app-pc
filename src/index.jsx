@@ -5,6 +5,11 @@ import { createStore } from 'redux'
 import todoApp from 'reducers/index'
 import App from 'components/App'
 
+// HtmlWebpackPlugin 插件不会创建 元素
+const rootEl = document.createElement('div')
+rootEl.id = 'root'
+document.body.appendChild(rootEl)
+
 let store = createStore(todoApp)
 
 render(
