@@ -73,6 +73,17 @@ const config = {
             exclude: /node_modules/,
             loader: 'babel-loader',
             options: project.compiler_babel
+            // use: [{
+            //     loader: 'babel-loader',
+            //     options: project.compiler_babel
+            // }, {
+            //     loader: 'eslint-loader',
+            //     options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine 
+            //         // formatter: require('eslint-friendly-formatter') // 指定错误报告的格式规范
+            //     }
+            // }],
+            // enforce: 'pre',
+            // include: [path.resolve(__dirname, 'src')] // 指定检查的目录
         }, {
             test: /\.scss$/,
             use: [

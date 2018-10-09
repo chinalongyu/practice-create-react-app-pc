@@ -155,3 +155,81 @@ resolve: {
 1. 修改 ```constants``` 文件夹的名字；
 2. 使用相对路径 ```import {xxx} from '../constants'```
 3. 在 ```webpack.common.js``` 中配置 ```resolve.alias``` ，给创建的 ```constants``` 文件夹取一个别名，如 ```appConstants``` ，然后使用 ```import { xxx } from 'appConstants'``` 即可引入
+
+## 2018年10月9 - 加入redux例子
+
+http://www.redux.org.cn/docs/basics/ExampleTodoList.html
+
+## 2018年10月9 - 引入 eslint
+
+本地安装 ```eslint```
+```
+cnpm install eslint --save-dev
+```
+
+设置一个配置文件 （windows系统）
+```
+.\node_modules\.bin\eslint --init
+```
+
+运行以上命令，然后选择的是根据需求去配置 eslint 配置文件，涉及的问题及答案如下
+```
+? How would you like to configure ESLint? Answer questions about your style
+? Which version of ECMAScript do you use? ES2016
+? Are you using ES6 modules? (y/N)
+F:\01-localws\practice-create-react-app-pc>
+F:\01-localws\practice-create-react-app-pc>
+F:\01-localws\practice-create-react-app-pc>
+F:\01-localws\practice-create-react-app-pc>.\node_modules\.bin\eslint --init
+? How would you like to configure ESLint? Answer questions about your style
+? Which version of ECMAScript do you use? ES2015
+? Are you using ES6 modules? Yes
+? Where will your code run? Browser
+? Do you use CommonJS? No
+? Do you use JSX? Yes
+? Do you use React? Yes
+? What style of indentation do you use? Spaces
+? What quotes do you use for strings? Single
+? What line endings do you use? Windows
+? Do you require semicolons? No
+? What format do you want your config file to be in? JSON
+The config that you've selected requires the following dependencies:
+
+eslint-plugin-react@latest
+Successfully created .eslintrc.json file in F:\01-localws\practice-create-react-app-pc
+```
+
+回答完以上问题后，在根目录下会生成 ```.eslintrc.json``` 文件，该文件生成后就会提示不符合规则的地方（打开文件，会有红色提示）。
+
+和 ```webpback``` 集成，需要安装 ```eslint-loader```，且要修改 ```webpack``` 的配置文件
+```
+cnpm install --save-dev eslint-loader
+
+// webpack.common.js js和jsx的loader修改为以下
+{
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    // loader: 'babel-loader',
+    // options: project.compiler_babel
+    use: [{
+        loader: 'babel-loader',
+        options: project.compiler_babel
+    }, {
+        loader: 'eslint-loader',
+        options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine 
+            enforce: 'pre',
+            include: [path.resolve(__dirname, 'src')], // 指定检查的目录,
+            // formatter: require('eslint-friendly-formatter') // 指定错误报告的格式规范
+        }
+    }],
+}
+```
+
+此时还没配置专门运行 ```eslint``` 的命令，直接运行 ```npm run start``` 时会报错，需要安装 ```eslint-plugin-react```。
+```
+cnpm install --save-dev eslint-plugin-react
+```
+
+对于不想用 ```eslint``` 进行检查的文件或文件夹，在根目录下创建 ```.eslintignore``` ，然后将要忽略检查的文件（夹）写入即可。
+
+检查红色提示，发现引入的组件被提示“已定义未使用”，原因是什么？？ TODO

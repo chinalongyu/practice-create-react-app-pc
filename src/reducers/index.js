@@ -1,17 +1,10 @@
 import { combineReducers } from 'redux'
+import todos from './todos'
+import visibilityFilter from './visibilityFilter'
 
-import createReducer from 'utils/createReducer'
-// import { EXAMPLE } from '../constants'
-import { EXAMPLE } from 'appConstants'
+const todoApp = combineReducers({
+    todos,
+    visibilityFilter
+})
 
-const example = createReducer(
-    { title: "项目构建成功" },
-    {
-        [EXAMPLE]: (state, action) => {
-            return state.merge({ title: action.payload.title })
-        }
-    })
-
-const rootReducer = combineReducers({ example })
-
-export default rootReducer
+export default todoApp
