@@ -232,4 +232,31 @@ cnpm install --save-dev eslint-plugin-react
 
 对于不想用 ```eslint``` 进行检查的文件或文件夹，在根目录下创建 ```.eslintignore``` ，然后将要忽略检查的文件（夹）写入即可。
 
-检查红色提示，发现引入的组件被提示“已定义未使用”，原因是什么？？ TODO
+## 2018年10月10（接上一天）
+
+检查红色提示，发现引入的组件被提示“已定义未使用”，解决方法有如下：
+1. 将 ```.eslintrc.json``` 中的 ```no-unused-vars``` 规则设置为禁用，禁用为 0
+```
+rules: {
+    "no-unused-vars": 0
+}
+```
+2. 将 ```.eslintrc.json``` 中的 ```extends``` 增加一个值
+```
+"extends": [
+    "eslint:recommended",
+    "plugin:react/recommended" // 增加
+]
+```
+
+针对 switch-case 的 case 提示 [eslint] Expected indentation of 4 spaces but found 8. (indent)，解决方法如下：
+修改 ```.eslintrc.json``` 中的 indent
+```
+"rules": {
+    "indent": [
+        "error",
+        4,
+        { "SwitchCase": 1 } // 增加
+    ],
+}
+```

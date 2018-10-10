@@ -24,11 +24,12 @@ let AddTodo = ({ dispatch }) => {
                 />
                 <button type="submit">
                     Add Todo
-        </button>
+                </button>
             </form>
         </div>
     )
 }
+
 AddTodo = connect()(AddTodo)
 
 export default AddTodo
