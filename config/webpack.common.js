@@ -85,21 +85,6 @@ const config = {
             // enforce: 'pre',
             // include: [path.resolve(__dirname, 'src')] // 指定检查的目录
         }, {
-            test: /\.scss$/,
-            use: [
-                'style-loader',
-                'css-loader?sourceMap&-minimize&modules',
-                'postcss-loader',
-                'sass-loader?sourceMap&modules'
-            ]
-        }, {
-            test: /\.css$/,
-            use: [
-                'style-loader',
-                'css-loader?sourceMap&-minimize&modules',
-                'postcss-loader'
-            ]
-        }, {
             test: /\.woff(\?.*)?$/,
             loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
         }, {

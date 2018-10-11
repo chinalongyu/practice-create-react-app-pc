@@ -30,14 +30,25 @@ const config = merge(common, {
             filename: 'css/[name].css',
             chunkfilename: '[id].css'
         }),
-    ]
-})
-
-config.module.rules.filter((loader) =>
-    loader.use && loader.use.find((name) => /(sc|c)ss/.test(name.split('?')[0]))
-).forEach((loader) => {
-    // production 环境用 MiniCssExtractPlugin.loader， development 环境用 style-loader
-    loader.use = [MiniCssExtractPlugin.loader, ...loader.use.slice(1)]
+    ],
+    module: {
+        rules: [{
+            test: /\.scss$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader?sourceMap&-minimize&modules',
+                'postcss-loader',
+                'sass-loader?sourceMap&modules'
+            ]
+        }, {
+            test: /\.css$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader?sourceMap&-minimize&modules',
+                'postcss-loader'
+            ]
+        }]
+    }
 })
 
 module.exports = config

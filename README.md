@@ -108,53 +108,53 @@
 
 ## 2018年9月21（解决webpack运行/打包失败问题）
 
-* 安装 clean-webpack-plugin， mini-css-extract-plugin，babel-plugin-transform-runtime
-```
-cnpm i --save-dev clean-webpack-plugin mini-css-extract-plugin @babel/plugin-transform-runtime
-```
+* 安装 ```clean-webpack-plugin```， ```mini-css-extract-plugin```，```babel-plugin-transform-runtime```
+    ```
+    cnpm i --save-dev clean-webpack-plugin mini-css-extract-plugin @babel/plugin-transform-runtime
+    ```
 
-* 安装
-```
-cnpm i --save babel-polyfill babel-runtime
-cnpm install --save-dev @babel/preset-react
-```
+* 安装 ```babel``` 相关插件
+    ```
+    cnpm i --save babel-polyfill babel-runtime
+    cnpm install --save-dev @babel/preset-react
+    ```
 
 ## 2018年9月25（解决webpack运行/打包失败问题）
 
 * 调试 webpack 配置文件
-```
-// package.json 添加 script
-"debug": "webpack --config config/webpack.common.js"
+    ```
+    // package.json 添加 script
+    "debug": "webpack --config config/webpack.common.js"
 
-// 在chrome 浏览器输入 chrome://inspect/#devices，然后点击 Open dedicated DevTools for Node
-```
+    // 在chrome 浏览器输入 chrome://inspect/#devices，然后点击 Open dedicated DevTools for Node
+    ```
 
 * 一直找不到 src 下的文件，需要在 webpack.common.js 中配置
-```
-resolve: {
-    modules: [
-        project.paths.client(),
-        'node_modules'
-    ],
-    extensions: ['.js', '.jsx', '.json']
-},
-```
+    ```
+    resolve: {
+        modules: [
+            project.paths.client(),
+            'node_modules'
+        ],
+        extensions: ['.js', '.jsx', '.json']
+    },
+    ```
 
 ## 2018年10月8（解决webpack运行/打包失败问题）
 
-运行 ```npm run start``` 报错：```｢wds｣: webpack Dev Server Invalid Options```。解决方法：修改 ```contentBase: project.paths.dist``` 为 ```contentBase: project.paths.dist()```
+* 运行 ```npm run start``` 报错：```｢wds｣: webpack Dev Server Invalid Options```。解决方法：修改 ```contentBase: project.paths.dist``` 为 ```contentBase: project.paths.dist()```
 
-无法通过ip访问服务，只能通过 ```localhost```。解决方法：设置 ```devServer.host``` 的值为 ```0.0.0.0```。
+* 无法通过ip访问服务，只能通过 ```localhost```。解决方法：设置 ```devServer.host``` 的值为 ```0.0.0.0```。
 
-设置 ```devServer.host=0.0.0.0``` 后，自动打开浏览器，访问 ```0.0.0.0::port```这个错误地址，移除 ```scripts.start``` 中的 ```--open``` 就不会自动打开浏览器了。
+* 设置 ```devServer.host=0.0.0.0``` 后，自动打开浏览器，访问 ```0.0.0.0::port```这个错误地址，移除 ```scripts.start``` 中的 ```--open``` 就不会自动打开浏览器了。
 
 ## 2018年10月9（解决找不到 constants 文件夹里的变量问题）
 
-文件夹命名为 ```constants``` 时，使用 ```import``` 会找不到变量，造成这个问题的原因是，安装的模块/插件中有名为 ```constants-browserify``` 的插件， 里边有 ```constants.json```， 使用 ```import {xxx} from 'constants'``` 时，实际引入的是这个文件里的内容。解决方法有三个
+* 文件夹命名为 ```constants``` 时，使用 ```import``` 会找不到变量，造成这个问题的原因是，安装的模块/插件中有名为 ```constants-browserify``` 的插件， 里边有 ```constants.json```， 使用 ```import {xxx} from 'constants'``` 时，实际引入的是这个文件里的内容。解决方法有三个
 
-1. 修改 ```constants``` 文件夹的名字；
-2. 使用相对路径 ```import {xxx} from '../constants'```
-3. 在 ```webpack.common.js``` 中配置 ```resolve.alias``` ，给创建的 ```constants``` 文件夹取一个别名，如 ```appConstants``` ，然后使用 ```import { xxx } from 'appConstants'``` 即可引入
+    1. 修改 ```constants``` 文件夹的名字；
+    2. 使用相对路径 ```import {xxx} from '../constants'```
+    3. 在 ```webpack.common.js``` 中配置 ```resolve.alias``` ，给创建的 ```constants``` 文件夹取一个别名，如 ```appConstants``` ，然后使用 ```import { xxx } from 'appConstants'``` 即可引入
 
 ## 2018年10月9 - 加入redux例子
 
@@ -162,101 +162,128 @@ http://www.redux.org.cn/docs/basics/ExampleTodoList.html
 
 ## 2018年10月9 - 引入 eslint
 
-本地安装 ```eslint```
-```
-cnpm install eslint --save-dev
-```
+* 本地安装 ```eslint```
+    ```
+    cnpm install eslint --save-dev
+    ```
 
-设置一个配置文件 （windows系统）
-```
-.\node_modules\.bin\eslint --init
-```
+* 设置一个配置文件 （windows系统）
+    ```
+    .\node_modules\.bin\eslint --init
+    ```
 
-运行以上命令，然后选择的是根据需求去配置 eslint 配置文件，涉及的问题及答案如下
-```
-? How would you like to configure ESLint? Answer questions about your style
-? Which version of ECMAScript do you use? ES2016
-? Are you using ES6 modules? (y/N)
-F:\01-localws\practice-create-react-app-pc>
-F:\01-localws\practice-create-react-app-pc>
-F:\01-localws\practice-create-react-app-pc>
-F:\01-localws\practice-create-react-app-pc>.\node_modules\.bin\eslint --init
-? How would you like to configure ESLint? Answer questions about your style
-? Which version of ECMAScript do you use? ES2015
-? Are you using ES6 modules? Yes
-? Where will your code run? Browser
-? Do you use CommonJS? No
-? Do you use JSX? Yes
-? Do you use React? Yes
-? What style of indentation do you use? Spaces
-? What quotes do you use for strings? Single
-? What line endings do you use? Windows
-? Do you require semicolons? No
-? What format do you want your config file to be in? JSON
-The config that you've selected requires the following dependencies:
+* 运行以上命令，然后选择的是根据需求去配置 eslint 配置文件，涉及的问题及答案如下
+    ```
+    ? How would you like to configure ESLint? Answer questions about your style
+    ? Which version of ECMAScript do you use? ES2016
+    ? Are you using ES6 modules? (y/N)
+    F:\01-localws\practice-create-react-app-pc>
+    F:\01-localws\practice-create-react-app-pc>
+    F:\01-localws\practice-create-react-app-pc>
+    F:\01-localws\practice-create-react-app-pc>.\node_modules\.bin\eslint --init
+    ? How would you like to configure ESLint? Answer questions about your style
+    ? Which version of ECMAScript do you use? ES2015
+    ? Are you using ES6 modules? Yes
+    ? Where will your code run? Browser
+    ? Do you use CommonJS? No
+    ? Do you use JSX? Yes
+    ? Do you use React? Yes
+    ? What style of indentation do you use? Spaces
+    ? What quotes do you use for strings? Single
+    ? What line endings do you use? Windows
+    ? Do you require semicolons? No
+    ? What format do you want your config file to be in? JSON
+    The config that you've selected requires the following dependencies:
 
-eslint-plugin-react@latest
-Successfully created .eslintrc.json file in F:\01-localws\practice-create-react-app-pc
-```
+    eslint-plugin-react@latest
+    Successfully created .eslintrc.json file in F:\01-localws\practice-create-react-app-pc
+    ```
 
-回答完以上问题后，在根目录下会生成 ```.eslintrc.json``` 文件，该文件生成后就会提示不符合规则的地方（打开文件，会有红色提示）。
+* 回答完以上问题后，在根目录下会生成 ```.eslintrc.json``` 文件，该文件生成后就会提示不符合规则的地方（打开文件，会有红色提示）。
 
-和 ```webpback``` 集成，需要安装 ```eslint-loader```，且要修改 ```webpack``` 的配置文件
-```
-cnpm install --save-dev eslint-loader
+* 和 ```webpback``` 集成，需要安装 ```eslint-loader```，且要修改 ```webpack``` 的配置文件。使用如下配置后，当运行 ```npm run start``` 才会使用 ```eslint``` 检查错误。
+    ```
+    cnpm install --save-dev eslint-loader
 
-// webpack.common.js js和jsx的loader修改为以下
-{
-    test: /\.(js|jsx)$/,
-    exclude: /node_modules/,
-    // loader: 'babel-loader',
-    // options: project.compiler_babel
-    use: [{
-        loader: 'babel-loader',
-        options: project.compiler_babel
-    }, {
-        loader: 'eslint-loader',
-        options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine 
-            enforce: 'pre',
-            include: [path.resolve(__dirname, 'src')], // 指定检查的目录,
-            // formatter: require('eslint-friendly-formatter') // 指定错误报告的格式规范
-        }
-    }],
-}
-```
+    // webpack.common.js js和jsx的loader修改为以下
+    {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        // loader: 'babel-loader',
+        // options: project.compiler_babel
+        use: [{
+            loader: 'babel-loader',
+            options: project.compiler_babel
+        }, {
+            loader: 'eslint-loader',
+            options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine 
+                enforce: 'pre',
+                include: [path.resolve(__dirname, 'src')], // 指定检查的目录,
+                // formatter: require('eslint-friendly-formatter') // 指定错误报告的格式规范
+            }
+        }],
+    }
+    ```
 
-此时还没配置专门运行 ```eslint``` 的命令，直接运行 ```npm run start``` 时会报错，需要安装 ```eslint-plugin-react```。
-```
-cnpm install --save-dev eslint-plugin-react
-```
+* 此时还没配置专门运行 ```eslint``` 的命令，直接运行 ```npm run start``` 时会报错，需要安装 ```eslint-plugin-react```。地址：https://github.com/yannickcr/eslint-plugin-react#configuration， 此时应该对 ```.eslintrc.json``` 的 ```extends``` 进行修改，否则会出现对引入的组件本来在使用，但提示“已定义未使用”等错误。
+    ```
+    cnpm install --save-dev eslint-plugin-react
+    ```
 
-对于不想用 ```eslint``` 进行检查的文件或文件夹，在根目录下创建 ```.eslintignore``` ，然后将要忽略检查的文件（夹）写入即可。
+* 对于不想用 ```eslint``` 进行检查的文件或文件夹，在根目录下创建 ```.eslintignore``` ，然后将要忽略检查的文件（夹）写入即可。
 
 ## 2018年10月10（接上一天）
 
-检查红色提示，发现引入的组件被提示“已定义未使用”，解决方法有如下：
-1. 将 ```.eslintrc.json``` 中的 ```no-unused-vars``` 规则设置为禁用，禁用为 0
-```
-rules: {
-    "no-unused-vars": 0
-}
-```
-2. 将 ```.eslintrc.json``` 中的 ```extends``` 增加一个值
-```
-"extends": [
-    "eslint:recommended",
-    "plugin:react/recommended" // 增加
-]
-```
+* 检查红色提示，发现引入的组件被提示“已定义未使用”，解决方法有如下：
+    1. 将 ```.eslintrc.json``` 中的 ```no-unused-vars``` 规则设置为禁用，禁用为 0
+        ```
+        rules: {
+            "no-unused-vars": 0
+        }
+        ```
+    2. 将 ```.eslintrc.json``` 中的 ```extends``` 增加一个值
+        ```
+        "extends": [
+            "eslint:recommended",
+            "plugin:react/recommended" // 增加
+        ]
+        ```
 
-针对 switch-case 的 case 提示 [eslint] Expected indentation of 4 spaces but found 8. (indent)，解决方法如下：
-修改 ```.eslintrc.json``` 中的 indent
-```
-"rules": {
-    "indent": [
-        "error",
-        4,
-        { "SwitchCase": 1 } // 增加
-    ],
-}
-```
+* 在 ```package.json``` 中增加一些命令
+    * 删除 dist 文件夹
+    ```
+    // 安装 rimraf 插件
+    cnpm i --save-dev rimraf
+
+    // 在 package.json 中加入命令
+    "scripts": {
+        "clean": "rimraf dist",
+    }
+
+    // 使用时运行如下命令
+    npm run clean
+    ```
+    * eslint 检查
+    ```
+    // 在 package.json 中加入命令
+    "scripts": {
+        "lint": "eslint src",
+    }
+
+    // 使用时运行如下命令
+    npm run lint
+    ```
+
+    运行时发现终端会打印： ```Warning: React version not specified in eslint-plugin-react settings. See https://github.com/yannickcr/eslint-plugin-react#configuration.``` ，对 ```.eslintrc.json``` 添加如下内容可解决该问题
+    ```
+    "settings": {
+        "react": {
+            "version": "16.5"
+        }
+    }
+
+    运行 npm run lint 时发现没有对jsx文件进行检查，解决方法为修改 lint 命令对应的脚本为
+    "scripts": {
+        "lint": "eslint --ext .js --ext .jsx src",
+    }
+    ```

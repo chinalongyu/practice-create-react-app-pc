@@ -1,6 +1,7 @@
 {
     "env": {
         "browser": true,
+        "node": true,
         "es6": true
     },
     "extends": [
@@ -17,11 +18,15 @@
     "plugins": [
         "react"
     ],
+    "settings": {
+        "react": {
+            "version": "16.5"
+        }
+    },
     "rules": {
         "indent": [
             "error",
-            4,
-            { "SwitchCase": 1 }
+            4
         ],
         "linebreak-style": [
             "error",
@@ -34,6 +39,12 @@
         "semi": [
             "error",
             "never"
+        ],
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "react/jsx-indent": [
+            2,
+            4
         ]
     }
 }

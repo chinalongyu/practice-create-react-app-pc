@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import FilterLink from '../containers/FilterLink'
 
-const Footer = () => (
-    <p>
+// const Footer = () => (
+//     <p>
+//     Show:
+//     {' '}
+//     <FilterLink filter="SHOW_ALL">
+//         All
+//     </FilterLink>
+//     {', '}
+//     <FilterLink filter="SHOW_ACTIVE">
+//         Active
+//     </FilterLink>
+//     {', '}
+//     <FilterLink filter="SHOW_COMPLETED">
+//         Completed
+//     </FilterLink>
+//     </p>
+// )
+
+// export default Footer
+
+export default class Footer extends PureComponent {
+    render() {
+        return (
+        <p>
         Show:
         {' '}
         <FilterLink filter="SHOW_ALL">
@@ -16,7 +38,7 @@ const Footer = () => (
         <FilterLink filter="SHOW_COMPLETED">
             Completed
         </FilterLink>
-    </p>
-)
-
-export default Footer
+        </p>
+        )
+    }
+}

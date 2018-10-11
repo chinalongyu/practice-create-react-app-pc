@@ -36,7 +36,25 @@ const config = merge(common, {
         new webpack.HotModuleReplacementPlugin(),
         // 用来跳过编译时出错的代码并记录，使编译后运行时的包不会发生错误
         new webpack.NoEmitOnErrorsPlugin()
-    ]
+    ],
+    module: {
+        rules: [{
+            test: /\.scss$/,
+            use: [
+                'style-loader',
+                'css-loader?sourceMap&-minimize&modules',
+                'postcss-loader',
+                'sass-loader?sourceMap&modules'
+            ]
+        }, {
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader?sourceMap&-minimize&modules',
+                'postcss-loader'
+            ]
+        }]
+    }
 })
 
 module.exports = config
