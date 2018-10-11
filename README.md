@@ -308,3 +308,31 @@ http://www.redux.org.cn/docs/basics/ExampleTodoList.html
         // 使用时运行如下命令
         npm run lint:fix
         ```
+
+## 2018年10月11（将 redux 的例子 TODOList 调整结构）
+
+* 发现在 class 内写 ```static propTypes = {}``` 时报错：```Unexpected token = ```，修改方式为：
+
+    ```
+    // 安装 babel-eslint
+    cnpm i --save-dev babel-eslint
+
+    // 在 .eslintrc.json 中增加
+    "parser": "babel-eslint",
+    ```
+
+* 运行 ```npm run start``` 时报错：```Support for
+the experimental syntax 'classProperties' isn't currently enabled...```
+    ```
+    // 安装 @babel/plugin-proposal-class-properties
+    cnpm i --save-dev @babel/plugin-proposal-class-properties
+
+    // 在 project.config.js 的 compiler_babel 里增加如下配置
+    compiler_babel: {
+        presets: [
+            plugins: [
+                "@babel/plugin-proposal-class-properties"
+            ]
+        ]
+    }
+    ```

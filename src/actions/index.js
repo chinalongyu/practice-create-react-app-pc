@@ -1,6 +1,6 @@
 let nextTodoId = 0
 
-const addTodo = text => {
+const addTodoItem = text => {
     return {
         type: 'ADD_TODO',
         id: nextTodoId++,
@@ -22,4 +22,4 @@ const toggleTodo = id => {
     }
 }
 
-export { addTodo, setVisibilityFilter, toggleTodo }
+export { addTodoItem, setVisibilityFilter, toggleTodo }
