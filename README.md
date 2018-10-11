@@ -235,6 +235,7 @@ http://www.redux.org.cn/docs/basics/ExampleTodoList.html
 ## 2018年10月10（接上一天）
 
 * 检查红色提示，发现引入的组件被提示“已定义未使用”，解决方法有如下：
+
     1. 将 ```.eslintrc.json``` 中的 ```no-unused-vars``` 规则设置为禁用，禁用为 0
         ```
         rules: {
@@ -250,40 +251,60 @@ http://www.redux.org.cn/docs/basics/ExampleTodoList.html
         ```
 
 * 在 ```package.json``` 中增加一些命令
+
     * 删除 dist 文件夹
-    ```
-    // 安装 rimraf 插件
-    cnpm i --save-dev rimraf
+    
+        ```
+        // 安装 rimraf 插件
+        cnpm i --save-dev rimraf
 
-    // 在 package.json 中加入命令
-    "scripts": {
-        "clean": "rimraf dist",
-    }
-
-    // 使用时运行如下命令
-    npm run clean
-    ```
-    * eslint 检查
-    ```
-    // 在 package.json 中加入命令
-    "scripts": {
-        "lint": "eslint src",
-    }
-
-    // 使用时运行如下命令
-    npm run lint
-    ```
-
-    运行时发现终端会打印： ```Warning: React version not specified in eslint-plugin-react settings. See https://github.com/yannickcr/eslint-plugin-react#configuration.``` ，对 ```.eslintrc.json``` 添加如下内容可解决该问题
-    ```
-    "settings": {
-        "react": {
-            "version": "16.5"
+        // 在 package.json 中加入命令
+        "scripts": {
+            "clean": "rimraf dist",
         }
-    }
 
-    运行 npm run lint 时发现没有对jsx文件进行检查，解决方法为修改 lint 命令对应的脚本为
-    "scripts": {
-        "lint": "eslint --ext .js --ext .jsx src",
-    }
-    ```
+        // 使用时运行如下命令
+        npm run clean
+        ```
+
+    * eslint 检查
+
+        ```
+        // 在 package.json 中加入命令
+        "scripts": {
+            "lint": "eslint src",
+        }
+
+        // 使用时运行如下命令
+        npm run lint
+        ```
+
+        运行时发现终端会打印： ```Warning: React version not specified in eslint-plugin-react settings. See https://github.com/yannickcr/eslint-plugin-react#configuration.``` ，对 ```.eslintrc.json``` 添加如下内容可解决该问题
+
+        ```
+        "settings": {
+            "react": {
+                "version": "16.5"
+            }
+        }
+        ```
+
+        运行 npm run lint 时发现没有对jsx文件进行检查，解决方法为修改 lint 命令对应的脚本为
+    
+        ```
+        "scripts": {
+            "lint": "eslint --ext .js --ext .jsx src",
+        }
+        ```
+
+    * eslint 修正，此方法可以修正大部分问题
+
+        ```
+        // 在 package.json 中加入命令
+        "scripts": {
+            "lint:fix": "npm run lint -- --fix"
+        }
+
+        // 使用时运行如下命令
+        npm run lint:fix
+        ```
